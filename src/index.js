@@ -1,18 +1,18 @@
 import lodash from 'lodash';
-import './style.css';
-import Icon from './icon.jpg';
+import axios from 'axios';
+import style from './style.css'
 
-function component() {
+window.onload = async (event) => {
+  try {
+    console.log(event);
     const element = document.createElement('div');
-    const myIcon = new Image();
+    const quote = await axios.get('https://random-data-api.com/api/coffee/random_coffee');
 
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-    element.classList.add('hello');
-    
-    myIcon.src = Icon;
-    element.appendChild(myIcon);
+    element.innerHTML = quote.data.blend_name;
+    element.classList.add('coffee');
 
-    return element;
+    document.body.appendChild(element);
+  } catch(e) {
+    console.error(e)
   }
-  
-  document.body.appendChild(component());
+};
